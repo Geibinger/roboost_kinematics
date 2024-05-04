@@ -1,0 +1,26 @@
+{
+  "name": "roboost_kinematics",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roboost/roboost_kinematics.git"
+  },
+  "authors": [
+    {
+      "name": "Jakob Friedl",
+      "email": "friedl.jak@gmail.com",
+      "url": "https://jakobfriedl.tech",
+      "maintainer": true
+    }
+  ],
+  "build": {
+    "flags": ["-I common/include"],
+    "srcFilter": ["+<common/src/roboost/kinematics/*.cpp>"]
+  },
+  "frameworks": "*",
+  "platforms": "*",
+
+  "dependencies": {
+    "hideakitai/ArduinoEigen": "*"
+  }
+}
