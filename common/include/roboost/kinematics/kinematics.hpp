@@ -9,16 +9,15 @@
  *
  */
 
-#include <ArduinoEigen.h>
-
 #ifndef KINEMATICS_H
 #define KINEMATICS_H
+
+#include <roboost/utils/matrices.hpp>
 
 namespace roboost
 {
     namespace kinematics
     {
-
         /**
          * @brief Abstract base class for defining kinematics calculations.
          *
@@ -32,17 +31,17 @@ namespace roboost
              * @brief Calculate robot velocity based on wheel velocities.
              *
              * @param wheel_velocity The velocities of individual wheels.
-             * @return Eigen::Vector3d The calculated robot velocity.
+             * @return Vector The calculated robot velocity.
              */
-            virtual Eigen::Vector3d calculate_robot_velocity(const Eigen::VectorXd& wheel_velocity) = 0;
+            virtual roboost::math::Vector calculate_robot_velocity(const roboost::math::Vector& wheel_velocity) = 0;
 
             /**
              * @brief Calculate wheel velocities based on robot velocity.
              *
              * @param robot_velocity The velocity of the robot.
-             * @return Eigen::VectorXd The calculated wheel velocities.
+             * @return Vector The calculated wheel velocities.
              */
-            virtual Eigen::VectorXd calculate_wheel_velocity(const Eigen::Vector3d& robot_velocity) = 0;
+            virtual roboost::math::Vector calculate_wheel_velocity(const roboost::math::Vector& robot_velocity) = 0;
         };
 
         /**
@@ -65,33 +64,31 @@ namespace roboost
              * @param track_width The distance between wheel contact points in the y
              * direction.
              */
-            MecanumKinematics4W(const float& wheel_radius, const float& wheel_base, const float& track_width);
+            MecanumKinematics4W(double wheel_radius, double wheel_base, double track_width);
 
             /**
              * @brief Calculate robot velocity based on wheel velocities.
              *
              * @param wheel_velocity The velocities of individual wheels.
-             * @return Eigen::Vector3d The calculated robot velocity.
+             * @return Vector The calculated robot velocity.
              */
-            Eigen::Vector3d calculate_robot_velocity(const Eigen::VectorXd& wheel_velocity) override;
+            roboost::math::Vector calculate_robot_velocity(const roboost::math::Vector& wheel_velocity) override;
 
             /**
              * @brief Calculate wheel velocities based on robot velocity.
              *
              * @param robot_velocity The velocity of the robot.
-             * @return Eigen::VectorXd The calculated wheel velocities.
+             * @return Vector The calculated wheel velocities.
              */
-            Eigen::VectorXd calculate_wheel_velocity(const Eigen::Vector3d& robot_velocity) override;
+            roboost::math::Vector calculate_wheel_velocity(const roboost::math::Vector& robot_velocity) override;
 
         private:
-            const float wheel_radius_; // Radius of the wheels.
-            const float wheel_base_;   // Distance between wheel contact points in the x
-                                       // direction.
-            const float track_width_;  // Distance between wheel contact points in the y
-                                       // direction.
+            double wheel_radius_; // Radius of the wheels.
+            double wheel_base_;   // Distance between wheel contact points in the x direction.
+            double track_width_;  // Distance between wheel contact points in the y direction.
 
-            Eigen::Matrix<double, 4, 3> forward_kinematics_;
-            Eigen::Matrix<double, 3, 4> inverse_kinematics_;
+            roboost::math::Matrix forward_kinematics_; // Forward kinematics matrix
+            roboost::math::Matrix inverse_kinematics_; // Inverse kinematics matrix
         };
 
         // TODO: Implement DifferentialDriveKinematics class

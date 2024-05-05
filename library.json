@@ -20,7 +20,15 @@
   "frameworks": "*",
   "platforms": "*",
 
-  "dependencies": {
-    "hideakitai/ArduinoEigen": "*"
-  }
+  "dependencies": [
+    {
+      "name": "Roboost Utils",
+      "version": "*",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/roboost/roboost_utils.git",
+        "branch": "main"
+      }
+    }
+  ]
 }
