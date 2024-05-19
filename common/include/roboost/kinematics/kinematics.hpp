@@ -33,7 +33,7 @@ namespace roboost
              * @param wheel_velocity The velocities of individual wheels.
              * @return Vector The calculated robot velocity.
              */
-            virtual roboost::math::Vector calculate_robot_velocity(const roboost::math::Vector& wheel_velocity) = 0;
+            virtual roboost::math::Vector<float> calculate_robot_velocity(const roboost::math::Vector<float>& wheel_velocity) = 0;
 
             /**
              * @brief Calculate wheel velocities based on robot velocity.
@@ -41,7 +41,7 @@ namespace roboost
              * @param robot_velocity The velocity of the robot.
              * @return Vector The calculated wheel velocities.
              */
-            virtual roboost::math::Vector calculate_wheel_velocity(const roboost::math::Vector& robot_velocity) = 0;
+            virtual roboost::math::Vector<float> calculate_wheel_velocity(const roboost::math::Vector<float>& robot_velocity) = 0;
         };
 
         /**
@@ -64,7 +64,7 @@ namespace roboost
              * @param track_width The distance between wheel contact points in the y
              * direction.
              */
-            MecanumKinematics4W(double wheel_radius, double wheel_base, double track_width);
+            MecanumKinematics4W(float wheel_radius, float wheel_base, float track_width);
 
             /**
              * @brief Calculate robot velocity based on wheel velocities.
@@ -72,7 +72,7 @@ namespace roboost
              * @param wheel_velocity The velocities of individual wheels.
              * @return Vector The calculated robot velocity.
              */
-            roboost::math::Vector calculate_robot_velocity(const roboost::math::Vector& wheel_velocity) override;
+            roboost::math::Vector<float> calculate_robot_velocity(const roboost::math::Vector<float>& wheel_velocity) override;
 
             /**
              * @brief Calculate wheel velocities based on robot velocity.
@@ -80,15 +80,15 @@ namespace roboost
              * @param robot_velocity The velocity of the robot.
              * @return Vector The calculated wheel velocities.
              */
-            roboost::math::Vector calculate_wheel_velocity(const roboost::math::Vector& robot_velocity) override;
+            roboost::math::Vector<float> calculate_wheel_velocity(const roboost::math::Vector<float>& robot_velocity) override;
 
         private:
-            double wheel_radius_; // Radius of the wheels.
-            double wheel_base_;   // Distance between wheel contact points in the x direction.
-            double track_width_;  // Distance between wheel contact points in the y direction.
+            float wheel_radius_; // Radius of the wheels.
+            float wheel_base_;   // Distance between wheel contact points in the x direction.
+            float track_width_;  // Distance between wheel contact points in the y direction.
 
-            roboost::math::Matrix forward_kinematics_; // Forward kinematics matrix
-            roboost::math::Matrix inverse_kinematics_; // Inverse kinematics matrix
+            roboost::math::Matrix<float> forward_kinematics_; // Forward kinematics matrix
+            roboost::math::Matrix<float> inverse_kinematics_; // Inverse kinematics matrix
         };
 
         // TODO: Implement DifferentialDriveKinematics class

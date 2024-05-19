@@ -15,9 +15,9 @@
 using namespace roboost::kinematics;
 using namespace roboost::math;
 
-MecanumKinematics4W::MecanumKinematics4W(double wheel_radius, double wheel_base, double track_width) : wheel_radius_(wheel_radius), wheel_base_(wheel_base), track_width_(track_width)
+MecanumKinematics4W::MecanumKinematics4W(float wheel_radius, float wheel_base, float track_width) : wheel_radius_(wheel_radius), wheel_base_(wheel_base), track_width_(track_width)
 {
-    const double l = (wheel_base_ + track_width_) / 2.0;
+    const float l = (wheel_base_ + track_width_) / 2.0;
     // clang-format off
     forward_kinematics_ = { {1, -1, -l},
                             {-1, -1, -l},
@@ -30,14 +30,14 @@ MecanumKinematics4W::MecanumKinematics4W(double wheel_radius, double wheel_base,
     // clang-format on
 }
 
-Vector MecanumKinematics4W::calculate_wheel_velocity(const Vector& robot_velocity)
+Vector<float> MecanumKinematics4W::calculate_wheel_velocity(const Vector<float>& robot_velocity)
 {
-    Vector wheel_velocity = forward_kinematics_ * robot_velocity;
+    Vector<float> wheel_velocity = forward_kinematics_ * robot_velocity;
     return wheel_velocity * (1 / wheel_radius_);
 }
 
-Vector MecanumKinematics4W::calculate_robot_velocity(const Vector& wheel_velocity)
+Vector<float> MecanumKinematics4W::calculate_robot_velocity(const Vector<float>& wheel_velocity)
 {
-    Vector robot_velocity = inverse_kinematics_ * wheel_velocity;
-    return robot_velocity * (wheel_radius_ / 4.0);
+    Vector<float> robot_velocity = inverse_kinematics_ * wheel_velocity;
+    return robot_velocity * (wheel_radius_ / 4.0f);
 }
