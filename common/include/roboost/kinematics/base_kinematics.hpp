@@ -9,13 +9,13 @@ namespace roboost
     namespace kinematics
     {
 
-        struct BaseKinematicState
+        struct BaseKinematicState : public description::State
         {
             float linear_x = 0.0f;
             float linear_y = 0.0f;
             float angular_z = 0.0f;
 
-            virtual ~BaseKinematicState() = default;
+            std::string serialize() const override { return "linear_x: " + std::to_string(linear_x) + ", linear_y: " + std::to_string(linear_y) + ", angular_z: " + std::to_string(angular_z); }
         };
 
         class BaseKinematics

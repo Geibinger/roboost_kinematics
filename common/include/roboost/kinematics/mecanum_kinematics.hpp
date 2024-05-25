@@ -4,6 +4,7 @@
 #include <array>
 #include <memory>
 #include <roboost/kinematics/base_kinematics.hpp>
+#include <roboost/utils/descriptions.hpp>
 #include <roboost/utils/matrices.hpp>
 
 namespace roboost
@@ -11,11 +12,16 @@ namespace roboost
     namespace kinematics
     {
 
-        struct MecanumConfig
+        struct MecanumConfig : public description::Config
         {
             float wheel_radius;
             float wheel_base;
             float track_width;
+
+            std::string serialize() const override
+            {
+                return "wheel_radius: " + std::to_string(wheel_radius) + ", wheel_base: " + std::to_string(wheel_base) + ", track_width: " + std::to_string(track_width);
+            }
         };
 
         struct MecanumKinematicState : public BaseKinematicState
